@@ -1,11 +1,17 @@
-import React, { createContext } from 'react';
-import { usePokemonReducer } from './usePokemonReducer';
-import { CAPTURE, RELEASE, ADD_POKEMON, ADD_POKEMONS } from './actions';
+import React, { createContext, useReducer } from 'react';
+import { pokemonReducer } from '../reducer/PokemonReducer';
+import { CAPTURE, RELEASE, ADD_POKEMON, ADD_POKEMONS } from '../Contant';
 
 const PokemonContext = createContext();
 
-const PokemonProvider = (props) => {
-  const [state, dispatch] = usePokemonReducer();
+
+const initData = {
+  pokemons: [],
+  capturedPokemons: []
+}
+
+const PokemonProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(pokemonReducer, initData)
   const { pokemons, capturedPokemons } = state;
 
   const capture = (pokemon) => () => dispatch({ type: CAPTURE, pokemon });
@@ -24,7 +30,7 @@ const PokemonProvider = (props) => {
 
   return (
     <PokemonContext.Provider value={providerValue}>
-      {props.children}
+      {children}
     </PokemonContext.Provider>
   )
 };

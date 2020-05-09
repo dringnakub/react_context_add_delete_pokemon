@@ -1,6 +1,20 @@
 import React, { useContext, useState } from 'react';
-import { PokemonContext } from './PokemonContext';
-import { generateID } from './generateID';
+import { PokemonContext } from '../contexts/PokemonContext';
+
+export const generateID = () => {
+  const a = Math
+    .random()
+    .toString(36)
+    .substring(2, 15);
+
+  const b = Math
+    .random()
+    .toString(36)
+    .substring(2, 15);
+
+  return a + b;
+}
+
 
 const PokemonForm = () => {
   const [pokemonName, setPokemonName] = useState();
